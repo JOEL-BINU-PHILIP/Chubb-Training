@@ -1,0 +1,55 @@
+# Build artifacts
+target/
+build/
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+
+# IDE-specific files
+.idea/
+.vscode/
+*.iml
+*.iws
+*.ipr
+.project
+.classpath
+.settings/
+.ds_store
+Thumbs.db
+
+# Maven/Gradle specific
+.gradle/
+.mvn/wrapper/maven-wrapper.jar # Maven Wrapper JAR can sometimes be ignored
+/gradlew
+/gradlew.bat
+/mvnw
+/mvnw.cmd
+/pom.xml.versionsBackup
+/release.properties
+/build.gradle.lockfile
+/gradle.properties.backup
+
+# Log files
+*.log
+logs/
+
+# Environment variables and sensitive data
+.env
+application*.properties.example # Example of how to ignore specific property files
+application*.yml.example
+*.key
+*.p12
+*.jks
+
+# Test reports and coverage
+test-reports/
+coverage/
+
+# Temporary files
+*.tmp
+*~
+*.bak
+*.swp
+.#*
