@@ -1,0 +1,16 @@
+package com.app.dto;
+
+public record Beneficiary(String name, String accountno) {
+
+	public boolean validateBene(String name) {
+		if(name != null && name.equals("James")) {
+			return false;
+		}
+		return true;
+	}
+	
+	public boolean equals(Object o) {
+		return true;
+	}
+
+}

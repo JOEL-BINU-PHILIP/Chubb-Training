@@ -1,0 +1,67 @@
+
+// Concrete class for a LuxuryCar.
+public class LuxuryCar extends Vehicle {
+
+    public LuxuryCar(String brand, String model, double exShowroomPrice) {
+        super(brand, model, exShowroomPrice);
+    }
+
+    
+     // [Runtime Polymorphism]
+     // Provides the concrete implementation for calculateOnRoadPrice.
+     // This calculation includes only the Luxury Tax, Import Duty, and GST.
+     
+    @Override
+    public OnRoadPriceBreakdown calculateOnRoadPrice() {
+        // Additional taxes applicable to all cars:
+        double luxuryTax = 0.20 * this.exShowroomPrice;  // 20%
+        double importDuty = 0.60 * this.exShowroomPrice; // 60%
+        double gst = 0.40 * this.exShowroomPrice;        // 40%
+        
+        double total = this.exShowroomPrice + luxuryTax + importDuty + gst;
+
+        return new OnRoadPriceBreakdown(this.exShowroomPrice, luxuryTax, 
+                                        importDuty, gst, total);
+    }
+
+    
+     // [Runtime Polymorphism]
+     // Provides the concrete implementation for the Insurable interface.
+     // Calculates insurance based on the rules in the assignment.
+     
+    @Override
+    public Insurance calculateInsurance(boolean includeThirdParty) {
+        // "Comprehensive Only" cost: 10% of Ex-Showroom Price
+        double comprehensiveCost = 0.10 * this.exShowroomPrice; 
+
+        if (includeThirdParty) {
+            // "Comprehensive + Third-Party (5 Year)" plan
+            
+            // 5% of Ex-Showroom
+            double thirdPartyCost = 0.05 * this.exShowroomPrice; 
+            // No Claim Bonus (20% of Ex-Showroom)
+            double ncbCharge = 0.20 * this.exShowroomPrice; 
+            // 18% GST on Ex-Showroom
+            double gstCharge = 0.18 * this.exShowroomPrice; 
+            
+            double total = comprehensiveCost + thirdPartyCost + ncbCharge + gstCharge;
+            String planName = "Comprehensive + Third-Party (5 Year)";
+            
+            return new Insurance(planName, comprehensiveCost, thirdPartyCost, 
+                                 ncbCharge, gstCharge, total, true);
+        } else {
+            // "Comprehensive Only" plan
+            String planName = "Comprehensive Only";
+            return new Insurance(planName, comprehensiveCost, 0, 0, 0, 
+                                 comprehensiveCost, false);
+        }
+    }
+
+    
+    //  [Compile-time Polymorphism]
+    // Overloaded method that defaults to the "Comprehensive Only" plan.
+    
+    public Insurance calculateInsurance() {
+        return calculateInsurance(false);
+    }
+}

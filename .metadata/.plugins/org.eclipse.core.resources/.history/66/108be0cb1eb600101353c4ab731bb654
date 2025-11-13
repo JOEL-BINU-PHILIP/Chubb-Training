@@ -1,0 +1,63 @@
+package com.app.process;
+
+import com.app.dto.TransactionRecord;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
+public class TransactionProcessingTask {
+
+    // Assuming the file is in the root directory
+    private static final String FILE_PATH = "transactions.txt"; 
+    private static final String HDFC_BANK_CODE_PREFIX = "HDFC";
+
+    public static void main(String[] args) {
+        processTransactions(FILE_PATH);
+    }
+
+    public static void processTransactions(String filePath) {
+        double totalHdfcPaidAmount = 0.0;
+        int successfulTransfers = 0;
+
+        System.out.println("--- Starting Transaction Processing ---");
+
+        // Use try-with-resources for reliable file closing
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String cleanLine = line.trim();
+                if (cleanLine.isEmpty()) continue;
+
+                try {
+                    TransactionRecord record = new TransactionRecord(cleanLine);
+
+                    if (record.isTransferValid()) {
+                        // 1. Complete the transfer (Logic applied)
+                        successfulTransfers++;
+                        System.out.println("SUCCESS: Transfer completed for " + record.toString());
+
+                        // 2. Calculate total amount paid by HDFC bank
+                        if (record.getPayerBankCode().toUpperCase().startsWith(HDFC_BANK_CODE_PREFIX)) {
+                            totalHdfcPaidAmount += record.getTransferAmount();
+                        }
+
+                    } else {
+                        System.out.println("FAILED: Insufficient balance or invalid amount for transfer: " + record.toString());
+                    }
+
+                } catch (NumberFormatException e) {
+                    System.err.println("ERROR: Skipped line due to malformed numerical data: " + cleanLine);
+                } catch (Exception e) {
+                    System.err.println("ERROR: Skipped line due to generic parsing error: " + cleanLine + " (" + e.getMessage() + ")");
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("FATAL ERROR: Could not read file " + filePath + ". " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        System.out.println("\n--- Processing Summary ---");
+        System.out.println("Total successful transfers: " + successfulTransfers);
+        System.out.printf("Total amount paid by HDFC Bank (successful transfers only): %.2f\n", totalHdfcPaidAmount);
+    }
+}

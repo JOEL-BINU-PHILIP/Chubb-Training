@@ -1,0 +1,66 @@
+/**
+ * Concrete class for a LuxuryCar.
+ * Demonstrates:
+ * 1. Inheritance (extends Vehicle) [cite: 23]
+ * 2. Runtime Polymorphism (implements abstract/interface methods) 
+ * 3. Compile-time Polymorphism (overloaded calculateInsurance) 
+ */
+public class LuxuryCar extends Vehicle {
+
+    public LuxuryCar(String brand, String model, double exShowroomPrice) {
+        super(brand, model, exShowroomPrice);
+    }
+
+    /**
+     * [Runtime Polymorphism]
+     * Provides the concrete implementation for calculateOnRoadPrice.
+     * Calculation based on assignment: Ex-Showroom + 12% of Ex-Showroom[cite: 21].
+     */
+    @Override
+    public double calculateOnRoadPrice() {
+        double taxes = 0.12 * this.exShowroomPrice;
+        return this.exShowroomPrice + taxes;
+    }
+
+    /**
+     * [Runtime Polymorphism]
+     * Provides the concrete implementation for the Insurable interface.
+     */
+    @Override
+    public Insurance calculateInsurance(boolean includeThirdParty) {
+        // "Comprehensive Only" cost: 10% of Ex-Showroom Price 
+        double comprehensiveCost = 0.10 * this.exShowroomPrice;
+
+        if (includeThirdParty) {
+            // "Comprehensive + Third-Party (5 Year)" plan 
+            // Note: The assignment logic is followed literally, even if it seems
+            // unusual in a real-world scenario (e.g., "No Claim Bonus" as a charge).
+            
+            // 5% of Ex-Showroom [cite: 18]
+            double thirdPartyCost = 0.05 * this.exShowroomPrice;
+            // No Claim Bonus (20% of Ex-Showroom) [cite: 18]
+            double ncbCharge = 0.20 * this.exShowroomPrice;
+            // 18% GST on Ex-Showroom [cite: 18]
+            double gstCharge = 0.18 * this.exShowroomPrice;
+            
+            double total = comprehensiveCost + thirdPartyCost + ncbCharge + gstCharge;
+            String planName = "Comprehensive + Third-Party (5 Year)";
+            
+            return new Insurance(planName, comprehensiveCost, thirdPartyCost, 
+                                 ncbCharge, gstCharge, total, true);
+        } else {
+            // "Comprehensive Only" plan [cite: 18]
+            String planName = "Comprehensive Only";
+            return new Insurance(planName, comprehensiveCost, 0, 0, 0, 
+                                 comprehensiveCost, false);
+        }
+    }
+
+    /**
+     * [Compile-time Polymorphism]
+     * Overloaded method that defaults to the "Comprehensive Only" plan.
+     */
+    public Insurance calculateInsurance() {
+        return calculateInsurance(false);
+    }
+}

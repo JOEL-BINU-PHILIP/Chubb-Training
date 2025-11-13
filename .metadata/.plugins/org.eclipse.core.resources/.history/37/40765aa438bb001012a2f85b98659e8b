@@ -1,0 +1,6 @@
+/**
+ * Interface defining the contract for calculating insurance.
+ */
+public interface Insurable {
+    Insurance calculateInsurance(boolean includeThirdParty);
+}

@@ -1,0 +1,43 @@
+
+// Encapsulates the detailed breakdown of a vehicle's on-road price.
+// This class is a POJO (Plain Old Java Object).
+
+public class OnRoadPriceBreakdown {
+
+    private double exShowroomPrice;
+    private double luxuryTax;
+    private double importDuty;
+    private double gst;
+    private double totalOnRoadPrice;
+
+    public OnRoadPriceBreakdown(double exShowroomPrice, double luxuryTax, double importDuty, 
+                                double gst, double totalOnRoadPrice) {
+        this.exShowroomPrice = exShowroomPrice;
+        this.luxuryTax = luxuryTax;
+        this.importDuty = importDuty;
+        this.gst = gst;
+        this.totalOnRoadPrice = totalOnRoadPrice;
+    }
+
+    // --- Getters ---
+
+    public double getExShowroomPrice() {
+        return exShowroomPrice;
+    }
+
+    public double getLuxuryTax() {
+        return luxuryTax;
+    }
+
+    public double getImportDuty() {
+        return importDuty;
+    }
+
+    public double getGst() {
+        return gst;
+    }
+
+    public double getTotalOnRoadPrice() {
+        return totalOnRoadPrice;
+    }
+}

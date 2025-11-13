@@ -1,0 +1,67 @@
+import java.util.*;
+
+
+//  Manages all car data using a nested HashMap.
+//  This class encapsulates the data storage logic.
+// Its only job is to store and provide the car brands, models, and their ex-showroom prices.
+public class CarData {
+
+    private Map<String, Map<String, Double>> carData;
+
+    public CarData() {
+        carData = new HashMap<>();
+        initializeData();
+    }
+
+    
+    //  Loads the car data into the HashMap based on the assignment.
+     
+    private void initializeData() {
+        // Ferrari Models
+        Map<String, Double> ferrariModels = new HashMap<>();
+        ferrariModels.put("Ferrari LaFerrari", 4000000.0);
+        ferrariModels.put("458 Italia", 169995.0);
+        carData.put("Ferrari", ferrariModels);
+
+        // Lamborghini Models
+        Map<String, Double> lamboModels = new HashMap<>();
+        lamboModels.put("Sesto Elemento", 2200000.0);
+        carData.put("Lamborghini", lamboModels);
+
+        // Lotus Models
+        Map<String, Double> lotusModels = new HashMap<>();
+        lotusModels.put("Exige", 137510.0);
+        carData.put("Lotus", lotusModels);
+
+        // Bentley Models
+        Map<String, Double> bentleyModels = new HashMap<>();
+        bentleyModels.put("Continental GT", 160920.0);
+        carData.put("Bentley", bentleyModels);
+
+        // Rolls Royce Models
+        Map<String, Double> rollsModels = new HashMap<>();
+        rollsModels.put("Wraith", 559570.0);
+        carData.put("Rolls Royce", rollsModels);
+    }
+
+    
+    //  Returns a Set of all available brands.
+     
+    public Set<String> getBrands() {
+        return carData.keySet();
+    }
+
+    
+    //  Returns a Map of models and their prices for a given brand.
+     
+    public Map<String, Double> getModelsForBrand(String brand) {
+        return carData.get(brand);
+    }
+
+    
+    //  Gets the ex-showroom price for a specific model.
+     
+    public double getPrice(String brand, String model) {
+        return carData.get(brand).get(model);
+    }
+}

@@ -1,0 +1,60 @@
+package com.app.features;
+import java.util.*;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Predicate;
+
+import com.app.dto.Account;
+import com.app.dto.Customer;
+public class PaymentOps {
+	public static void main(String[] args) {
+		Account acct = new Account("1", 5000);
+		System.out.println("account details  -" + acct.accountNo() + "balance" + acct.accountBalance());
+		Account acct2 = new Account("2", 12122);
+		System.out.println("account details  -" + acct.accountNo() + "balance" + acct.accountBalance());
+		boolean fundtransfer(acct,acct2,500);
+	}
+	public static boolean fundtransfer(Account acct, Account acct2 , double transactionAmt) {
+		//im assuming acct is transfering money to acct2
+//		if(acct.accountBalance() > transactionAmt) {
+//			return true;
+//		}
+
+
+		    var balance = acct2.accountBalance(); //double
+
+		    var accountno = acct2.accountNo(); //string
+
+		    var namelist = new ArrayList<String>();
+
+		    Predicate<String> prt = p->p.startsWith("J");
+
+		    Consumer<String> con = name->System.out.println("names "+name);
+
+		    Function<String,String> funcobj = name->name.substring(0, 3);
+
+		    namelist.stream().map(funcobj).count();
+
+		    namelist.stream().filter(p->p.startsWith("J")).forEach(name->System.out.println(name));
+
+		    namelist.stream().filter(prt).forEach(con);
+]
+		    var companymap = new HashMap<String,List<Customer>>();
+		    
+		    Account acct1 = new Account("james", "342424242", 453535);
+		    Account acct12 = new Account("Keyon", "342424234", 500000);
+
+		    List<Account> acctlist = List.of(acct1, acct12);
+
+		    List<Account> sortedByAccountNo = acctlist.stream()
+		        .sorted(Comparator.comparing(Account::getAccountNo)) // Assumes getAccountNo() getter
+		        .collect(Collectors.toList());
+
+		    // Print the sorted list to verify
+		    System.out.println("--- Sorted by Account Number ---");
+		    sortedByAccountNo.forEach(account -> 
+		        System.out.println(account.getAccountNo() + " - " + account.getName())
+		    );
+		return false;
+	}
+}

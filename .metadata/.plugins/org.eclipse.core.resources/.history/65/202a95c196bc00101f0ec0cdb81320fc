@@ -1,0 +1,34 @@
+
+//Abstract base class for all vehicles.
+public abstract class Vehicle implements Insurable {
+
+    protected String brand;
+    protected String model;
+    protected double exShowroomPrice;
+    protected int engineCC; 
+    public Vehicle(String brand, String model, double exShowroomPrice, int engineCC) { 
+        this.brand = brand;
+        this.model = model;
+        this.exShowroomPrice = exShowroomPrice;
+        this.engineCC = engineCC; 
+    }
+
+    public abstract OnRoadPriceBreakdown calculateOnRoadPrice();
+
+    //Getters 
+    public String getBrand() {
+        return brand;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public double getExShowroomPrice() {
+        return exShowroomPrice;
+    }
+    
+    public int getEngineCC() { 
+        return engineCC;
+    }
+}

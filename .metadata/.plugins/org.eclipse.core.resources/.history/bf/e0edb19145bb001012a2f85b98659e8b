@@ -1,0 +1,40 @@
+
+ // Abstract base class for all vehicles.
+ // Demonstrates Abstraction by defining an abstract method for on-road price.
+ // Implements the Insurable interface.
+
+public abstract class Vehicle implements Insurable {
+
+    // Protected fields for access by child classes
+    protected String brand;
+    protected String model;
+    protected double exShowroomPrice;
+
+    public Vehicle(String brand, String model, double exShowroomPrice) {
+        this.brand = brand;
+        this.model = model;
+        this.exShowroomPrice = exShowroomPrice;
+    }
+
+    // --- Abstract Method (Abstraction) ---
+    
+    
+    // Calculates the final on-road price and returns a detailed breakdown.
+    // The implementation is left to child classes.
+     
+    public abstract OnRoadPriceBreakdown calculateOnRoadPrice();
+
+    // --- Getters (Encapsulation) ---
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public double getExShowroomPrice() {
+        return exShowroomPrice;
+    }
+}

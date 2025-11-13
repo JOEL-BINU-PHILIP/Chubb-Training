@@ -1,0 +1,23 @@
+package com.app.dto;
+
+public record Account(String accountNo , double accountBalance){
+	public Account(String accountNo, double accountBalance) {
+		this.accountNo = accountNo;
+		this.accountBalance = accountBalance;
+		// TODO Auto-generated constructor stub
+	}
+
+	public String getAccountNo() {
+        return accountNo;
+    }
+
+    // No setter for account number, as it shouldn't change
+
+    // Getter for balance
+    public double getAccountBalance() {
+        return accountBalance;
+    }
+
+    // Setter for balance
+    
+}

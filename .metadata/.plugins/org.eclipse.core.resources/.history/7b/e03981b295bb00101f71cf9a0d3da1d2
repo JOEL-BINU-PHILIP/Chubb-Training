@@ -1,0 +1,56 @@
+
+// Encapsulates the details of a calculated insurance plan.
+// All fields are private and accessed via getters.
+ 
+public class Insurance {
+
+    private String planName;
+    private double comprehensiveCost;
+    private double thirdPartyCost;
+    private double noClaimBonusCharge; 
+    private double gstCharge;          
+    private double totalInsuranceCost;
+    private boolean isThirdPartyIncluded;
+
+    public Insurance(String planName, double comprehensiveCost, double thirdPartyCost, 
+                     double noClaimBonusCharge, double gstCharge, 
+                     double totalInsuranceCost, boolean isThirdPartyIncluded) {
+        this.planName = planName;
+        this.comprehensiveCost = comprehensiveCost;
+        this.thirdPartyCost = thirdPartyCost;
+        this.noClaimBonusCharge = noClaimBonusCharge;
+        this.gstCharge = gstCharge;
+        this.totalInsuranceCost = totalInsuranceCost;
+        this.isThirdPartyIncluded = isThirdPartyIncluded;
+    }
+
+    //Getters(Encapsulation) 
+
+    public String getPlanName() {
+        return planName;
+    }
+
+    public double getComprehensiveCost() {
+        return comprehensiveCost;
+    }
+
+    public double getThirdPartyCost() {
+        return thirdPartyCost;
+    }
+
+    public double getNoClaimBonusCharge() {
+        return noClaimBonusCharge;
+    }
+
+    public double getGstCharge() {
+        return gstCharge;
+    }
+
+    public double getTotalInsuranceCost() {
+        return totalInsuranceCost;
+    }
+
+    public boolean isThirdPartyIncluded() {
+        return isThirdPartyIncluded;
+    }
+}

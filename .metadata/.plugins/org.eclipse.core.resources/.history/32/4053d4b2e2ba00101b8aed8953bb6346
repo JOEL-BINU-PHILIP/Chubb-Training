@@ -1,0 +1,20 @@
+package com.app.features;
+
+import com.app.dto.Account;
+public class PaymentOps {
+	public static void main(String[] args) {
+		Account acct = new Account("1", 5000);
+		System.out.println("account details  -" + acct.accountNo() + "balance" + acct.accountBalance());
+		Account acct2 = new Account("2", 12122);
+		System.out.println("account details  -" + acct.accountNo() + "balance" + acct.accountBalance());
+		boolean fundtransfer(acct,acct2,500);
+	}
+	public static boolean fundtransfer(Account acct, Account acct2 , double transactionAmt) {
+		//im assuming acct is transfering money to acct2
+		if(acct.accountBalance() > transactionAmt) {
+			return true;
+		}
+		
+		return false;
+	}
+}

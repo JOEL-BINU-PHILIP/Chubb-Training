@@ -1,0 +1,66 @@
+
+// Class for a LuxuryCar.
+public class LuxuryCar extends Vehicle {
+
+    public LuxuryCar(String brand, String model, double exShowroomPrice, int engineCC) { 
+        super(brand, model, exShowroomPrice, engineCC); 
+    }
+
+  
+     // Runtime Polymorphism
+     // Provides the concrete implementation for calculateOnRoadPrice.
+     // The 20% Luxury Tax is  ONLY applied if the engine is 6750cc.
+     
+    @Override
+    public OnRoadPriceBreakdown calculateOnRoadPrice() {
+        
+        double luxuryTax = 0.0;
+        
+        // This is the new logic as per your request
+        if (this.engineCC == 6750) {
+            luxuryTax = 0.20 * this.exShowroomPrice;
+        }
+
+        // Other taxes are applied to all cars
+        double importDuty = 0.60 * this.exShowroomPrice;
+        double gst = 0.40 * this.exShowroomPrice;
+        
+        double total = this.exShowroomPrice + luxuryTax + importDuty + gst;
+
+        return new OnRoadPriceBreakdown(this.exShowroomPrice, luxuryTax, 
+                                        importDuty, gst, total);
+    }
+
+    
+     // Runtime Polymorphism
+     
+    @Override
+    public Insurance calculateInsurance(boolean includeThirdParty) {
+        // "Comprehensive Only" cost: 10% of Ex-Showroom Price
+        double comprehensiveCost = 0.10 * this.exShowroomPrice; 
+
+        if (includeThirdParty) {
+            // "Comprehensive + Third-Party (5 Year)" plan
+            double thirdPartyCost = 0.05 * this.exShowroomPrice; 
+            double ncbCharge = 0.20 * this.exShowroomPrice; 
+            double gstCharge = 0.18 * this.exShowroomPrice; 
+            
+            double total = comprehensiveCost + thirdPartyCost + ncbCharge + gstCharge;
+            String planName = "Comprehensive + Third-Party (5 Year)";
+            
+            return new Insurance(planName, comprehensiveCost, thirdPartyCost, 
+                                 ncbCharge, gstCharge, total, true);
+        } else {
+            // "Comprehensive Only" plan
+            String planName = "Comprehensive Only";
+            return new Insurance(planName, comprehensiveCost, 0, 0, 0, 
+                                 comprehensiveCost, false);
+        }
+    }
+
+    
+     // Compile-time Polymorphism
+    public Insurance calculateInsurance() {
+        return calculateInsurance(false);
+    }
+}

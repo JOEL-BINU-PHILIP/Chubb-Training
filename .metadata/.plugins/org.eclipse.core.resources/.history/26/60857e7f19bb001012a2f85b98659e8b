@@ -1,0 +1,78 @@
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+    public int findPaths(int m, int n, int maxMove, int startRow, int startColumn) {
+        // Modulo constant
+        int MOD = 1_000_000_007;
+
+        // dp[k][r][c] = number of paths to cell (r, c) in exactly k moves.
+        // We use long to prevent overflow during intermediate sums.
+        long[][][] dp = new long[maxMove + 1][m][n];
+
+        dp[0][startRow][startColumn] = 1;
+        long totalPaths = 0;
+
+        // Directions: up, down, left, right
+        int[] dr = {-1, 1, 0, 0};
+        int[] dc = {0, 0, -1, 1};
+
+        // Iterate for each move count from 0 up to maxMove - 1
+        for (int k = 0; k < maxMove; k++) {
+            // For every cell in the grid
+            for (int r = 0; r < m; r++) {
+                for (int c = 0; c < n; c++) {
+                    
+                    // If there are paths to this cell at this step
+                    if (dp[k][r][c] > 0) {
+                        
+                        // Try all 4 possible moves
+                        for (int i = 0; i < 4; i++) {
+                            int nextR = r + dr[i];
+                            int nextC = c + dc[i];
+
+                            // Check if the move goes OUT of bounds
+                            if (nextR < 0 || nextR >= m || nextC < 0 || nextC >= n) {
+                                // This is an exit path. Add the count of paths
+                                // that led to (r, c) at step k.
+                                totalPaths = (totalPaths + dp[k][r][c]) % MOD;
+                            } else {
+                                // This move is IN bounds.
+                                // Add these paths to the *next* step's count for that cell.
+                                dp[k + 1][nextR][nextC] = (dp[k + 1][nextR][nextC] + dp[k][r][c]) % MOD;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        // Return the final result cast to int
+        return (int) totalPaths;
+    }
+
+    /**
+     * Main method to read input and print the solution.
+     */
+    public static void main(String[] args) throws IOException {
+        
+        // Use Scanner for easy input reading from STDIN
+        Scanner scanner = new Scanner(System.in);
+        
+        // Read all 5 inputs from the single line
+        int m = scanner.nextInt();
+        int n = scanner.nextInt();
+        int maxMove = scanner.nextInt();
+        int startRow = scanner.nextInt();
+        int startColumn = scanner.nextInt();
+        
+        // Create a solution instance and call the findPaths method
+        Solution sol = new Solution();
+        int result = sol.findPaths(m, n, maxMove, startRow, startColumn);
+        
+        // Print the result to STDOUT
+        System.out.println(result);
+        
+        scanner.close();
+    }
+}
