@@ -53,3 +53,4 @@ coverage/
 *.bak
 *.swp
 .#*
+/.metadata/
